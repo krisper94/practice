@@ -1,24 +1,29 @@
 package ru.krisper.practice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Transistor {
+@Table(name = "transistor")
+public class Transistor implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private int id;
 
     @NotNull
+    @Column(name = "name")
     private String name;
 
     @ManyToOne
+    @JoinColumn(name="type_id", nullable = false)
     private Type type;
 
     @NotNull
+    @Column(name = "specs_link")
     private String specs_link;
 
     public Transistor() {

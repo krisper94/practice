@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.krisper.practice.data.TypeDao;
 import ru.krisper.practice.models.Type;
 
@@ -39,6 +40,21 @@ public class TypeController {
             return "type/add";
         }
         typeDao.save(type);
+        return "redirect:";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String displayRemoveTransistorForm(Model model) {
+        model.addAttribute("types", typeDao.findAll());
+        model.addAttribute("title", "Remove Type");
+        return "type/remove";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveTransistorForm(@RequestParam int[] typeIds) {
+        for (int typeId : typeIds) {
+            typeDao.deleteById(typeId);
+        }
         return "redirect:";
     }
 }

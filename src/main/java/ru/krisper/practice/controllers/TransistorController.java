@@ -23,7 +23,7 @@ public class TransistorController {
     private TypeDao typeDao;
 
     @RequestMapping(value = "")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("transistors", transistorDao.findAll());
         model.addAttribute("title", "Transistors DB");
 
@@ -31,7 +31,7 @@ public class TransistorController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddTransistorForm(Model model){
+    public String displayAddTransistorForm(Model model) {
         model.addAttribute("title", "Add Transistor");
         model.addAttribute("types", typeDao.findAll());
         model.addAttribute(new Transistor());
@@ -40,8 +40,8 @@ public class TransistorController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddTransistorForm(@ModelAttribute @Valid Transistor newTransistor,
-                                           Errors errors, @RequestParam int typeId, Model model){
-        if(errors.hasErrors()){
+                                           Errors errors, @RequestParam int typeId, Model model) {
+        if (errors.hasErrors()) {
             model.addAttribute("title", "Add Transistor");
             model.addAttribute("types", typeDao.findAll());
             return "transistor/add";
@@ -53,26 +53,18 @@ public class TransistorController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveTransistorForm(Model model){
+    public String displayRemoveTransistorForm(Model model) {
         model.addAttribute("transistors", transistorDao.findAll());
         model.addAttribute("title", "Remove Transistor");
         return "transistor/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveTransistorForm(@RequestParam int[] transistorIds){
-        for(int transistorId : transistorIds){
+    public String processRemoveTransistorForm(@RequestParam int[] transistorIds) {
+        for (int transistorId : transistorIds) {
             transistorDao.deleteById(transistorId);
         }
         return "redirect:";
     }
 
-    /*@RequestMapping(value = "category", method = RequestMethod.GET)
-    public String category(Model model, @RequestParam int id){
-        Type t = typeDao.findById(id).orElse(null);
-        List<Transistor> transistors = t.getTransistors();
-        model.addAttribute("transistors", transistors);
-        model.addAttribute("title", "Transistors with type: " + t.getName());
-        return "transistor/index";
-    }*/
 }

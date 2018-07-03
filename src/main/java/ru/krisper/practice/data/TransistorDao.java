@@ -8,4 +8,5 @@ import ru.krisper.practice.models.Transistor;
 @Repository
 @Transactional
 public interface TransistorDao extends CrudRepository<Transistor, Integer> {
+
 }

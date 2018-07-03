@@ -1,23 +1,26 @@
 package ru.krisper.practice.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Type {
+@Table(name = "type")
+public class Type implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id_type")
     private int id;
 
     @NotNull
+    @Column(name = "name")
     private String name;
-
-    @OneToMany
-    @JoinColumn(name = "type_id")
-    private List<Transistor> transistors = new ArrayList<>();
 
     public Type() {
     }
@@ -37,10 +40,5 @@ public class Type {
     public void setName(String name) {
         this.name = name;
     }
-
-    public List<Transistor> getTransistors() {
-        return transistors;
-    }
-
 
 }

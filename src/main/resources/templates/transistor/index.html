@@ -7,6 +7,8 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<a href="/transistor/add">Add transistor</a> |
+<a href="/transistor/remove">Remove transistor</a>
 
 <p th:unless="${transistors} and ${transistors.size()}">Base is empty</p>
 
@@ -21,7 +23,9 @@
 
     <tr th:each="transistor : ${transistors}">
         <td th:text="${transistor.name}"></td>
-        <td th:text="${transistor.specs_link}"></td><!-- сделать кликабельным-->
+        <td>
+            <a th:href="${transistor.specs_link}" target="_blank">Link to Specifications</a>
+        </td>
         <td th:text="${transistor.type.name}"></td>
     </tr>
 
