@@ -9,6 +9,8 @@
 * Thymeleaf
 * Hibernate
 * Flyway вместо Liquibase
+* IDE InteliJ Idea Community
+* OS Windows 10 LTSB
 
 == Планируется добавить
 
